@@ -230,6 +230,7 @@ namespace WinAppMediaPlayerVersie2
             this.btnStopPlay.TabIndex = 2;
             this.btnStopPlay.Text = "Playlist stoppen";
             this.btnStopPlay.UseVisualStyleBackColor = true;
+            this.btnStopPlay.Click += new System.EventHandler(this.btnStopPlay_Click);
             // 
             // btnStartPlay
             // 
@@ -240,6 +241,7 @@ namespace WinAppMediaPlayerVersie2
             this.btnStartPlay.TabIndex = 1;
             this.btnStartPlay.Text = "Playlist afspelen";
             this.btnStartPlay.UseVisualStyleBackColor = true;
+            this.btnStartPlay.Click += new System.EventHandler(this.btnStartPlay_Click);
             // 
             // btnVoegSongToe
             // 
@@ -280,6 +282,7 @@ namespace WinAppMediaPlayerVersie2
             this.Name = "frmServerMediaPlayer";
             this.Text = "MediaPlayer - Server";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmServerMediaPlayer_Load);
             this.Shown += new System.EventHandler(this.frmServerMediaPlayer_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabMediaPlayer.ResumeLayout(false);
