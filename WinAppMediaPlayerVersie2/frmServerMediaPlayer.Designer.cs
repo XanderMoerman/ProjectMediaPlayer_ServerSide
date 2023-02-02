@@ -53,8 +53,15 @@ namespace WinAppMediaPlayerVersie2
             this.BtnStart = new System.Windows.Forms.Button();
             this.btnVoegSongToe = new System.Windows.Forms.Button();
             this.tabServer = new System.Windows.Forms.TabPage();
+            this.ChbStartServer = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.TxtIP = new System.Windows.Forms.TextBox();
+            this.TxtPort = new System.Windows.Forms.TextBox();
             this.tabPlaylist = new System.Windows.Forms.TabPage();
             this.OfdFindSong = new System.Windows.Forms.OpenFileDialog();
+            this.TxtMedling = new System.Windows.Forms.RichTextBox();
+            this.BgWorkerListener = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabMediaPlayer.SuspendLayout();
@@ -65,6 +72,7 @@ namespace WinAppMediaPlayerVersie2
             this.pnlPlaylist.SuspendLayout();
             this.pnlKnoppen.SuspendLayout();
             this.pnlAlleSongs.SuspendLayout();
+            this.tabServer.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -92,10 +100,10 @@ namespace WinAppMediaPlayerVersie2
             // 
             // toolStripStatusLabel1
             // 
-            this.toolStripStatusLabel1.Enabled = false;
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.Lime;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(13, 20);
-            this.toolStripStatusLabel1.Text = " ";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(21, 20);
+            this.toolStripStatusLabel1.Text = " ||";
             // 
             // tssTCPServer
             // 
@@ -105,10 +113,10 @@ namespace WinAppMediaPlayerVersie2
             // 
             // toolStripStatusLabel3
             // 
-            this.toolStripStatusLabel3.Enabled = false;
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.Lime;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(13, 20);
-            this.toolStripStatusLabel3.Text = " ";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(17, 20);
+            this.toolStripStatusLabel3.Text = "||";
             // 
             // tssTCPClient
             // 
@@ -168,9 +176,9 @@ namespace WinAppMediaPlayerVersie2
             this.pnlPlaylist.Controls.Add(this.lstPlaylistSongs);
             this.pnlPlaylist.Controls.Add(this.label2);
             this.pnlPlaylist.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlPlaylist.Location = new System.Drawing.Point(558, 0);
+            this.pnlPlaylist.Location = new System.Drawing.Point(561, 0);
             this.pnlPlaylist.Name = "pnlPlaylist";
-            this.pnlPlaylist.Size = new System.Drawing.Size(741, 486);
+            this.pnlPlaylist.Size = new System.Drawing.Size(738, 486);
             this.pnlPlaylist.TabIndex = 4;
             // 
             // lstPlaylistSongs
@@ -180,7 +188,7 @@ namespace WinAppMediaPlayerVersie2
             this.lstPlaylistSongs.ItemHeight = 16;
             this.lstPlaylistSongs.Location = new System.Drawing.Point(0, 16);
             this.lstPlaylistSongs.Name = "lstPlaylistSongs";
-            this.lstPlaylistSongs.Size = new System.Drawing.Size(741, 470);
+            this.lstPlaylistSongs.Size = new System.Drawing.Size(738, 470);
             this.lstPlaylistSongs.TabIndex = 1;
             // 
             // label2
@@ -195,7 +203,7 @@ namespace WinAppMediaPlayerVersie2
             // 
             // splitter2
             // 
-            this.splitter2.Location = new System.Drawing.Point(550, 0);
+            this.splitter2.Location = new System.Drawing.Point(553, 0);
             this.splitter2.Name = "splitter2";
             this.splitter2.Size = new System.Drawing.Size(8, 486);
             this.splitter2.TabIndex = 3;
@@ -209,7 +217,7 @@ namespace WinAppMediaPlayerVersie2
             this.pnlKnoppen.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlKnoppen.Location = new System.Drawing.Point(480, 0);
             this.pnlKnoppen.Name = "pnlKnoppen";
-            this.pnlKnoppen.Size = new System.Drawing.Size(70, 486);
+            this.pnlKnoppen.Size = new System.Drawing.Size(73, 486);
             this.pnlKnoppen.TabIndex = 2;
             // 
             // btnVerwijderPlayList
@@ -305,6 +313,12 @@ namespace WinAppMediaPlayerVersie2
             // 
             // tabServer
             // 
+            this.tabServer.Controls.Add(this.TxtMedling);
+            this.tabServer.Controls.Add(this.ChbStartServer);
+            this.tabServer.Controls.Add(this.label4);
+            this.tabServer.Controls.Add(this.label3);
+            this.tabServer.Controls.Add(this.TxtIP);
+            this.tabServer.Controls.Add(this.TxtPort);
             this.tabServer.Location = new System.Drawing.Point(4, 25);
             this.tabServer.Name = "tabServer";
             this.tabServer.Padding = new System.Windows.Forms.Padding(3);
@@ -312,6 +326,50 @@ namespace WinAppMediaPlayerVersie2
             this.tabServer.TabIndex = 1;
             this.tabServer.Text = "TCP/IP Server";
             this.tabServer.UseVisualStyleBackColor = true;
+            // 
+            // ChbStartServer
+            // 
+            this.ChbStartServer.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ChbStartServer.Location = new System.Drawing.Point(11, 68);
+            this.ChbStartServer.Name = "ChbStartServer";
+            this.ChbStartServer.Size = new System.Drawing.Size(319, 36);
+            this.ChbStartServer.TabIndex = 5;
+            this.ChbStartServer.Text = "Start Server";
+            this.ChbStartServer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ChbStartServer.UseVisualStyleBackColor = true;
+            this.ChbStartServer.CheckedChanged += new System.EventHandler(this.ChbStartServer_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(8, 40);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Port";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(25, 15);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(19, 16);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "IP";
+            // 
+            // TxtIP
+            // 
+            this.TxtIP.Location = new System.Drawing.Point(45, 12);
+            this.TxtIP.Name = "TxtIP";
+            this.TxtIP.Size = new System.Drawing.Size(285, 22);
+            this.TxtIP.TabIndex = 2;
+            // 
+            // TxtPort
+            // 
+            this.TxtPort.Location = new System.Drawing.Point(45, 40);
+            this.TxtPort.Name = "TxtPort";
+            this.TxtPort.Size = new System.Drawing.Size(285, 22);
+            this.TxtPort.TabIndex = 1;
             // 
             // tabPlaylist
             // 
@@ -325,7 +383,15 @@ namespace WinAppMediaPlayerVersie2
             // OfdFindSong
             // 
             this.OfdFindSong.FileName = "openFileDialog1";
-            this.OfdFindSong.Filter = "mp3 files (*.mp3)|*.mp3";
+            this.OfdFindSong.Filter = "mp3 files (*.mp3)|*.mp3|wav files (*.wav)|*.wav|mp4 files (*.mp4)|*.mp4";
+            // 
+            // TxtMedling
+            // 
+            this.TxtMedling.Location = new System.Drawing.Point(11, 110);
+            this.TxtMedling.Name = "TxtMedling";
+            this.TxtMedling.Size = new System.Drawing.Size(319, 535);
+            this.TxtMedling.TabIndex = 6;
+            this.TxtMedling.Text = "";
             // 
             // frmServerMediaPlayer
             // 
@@ -336,6 +402,7 @@ namespace WinAppMediaPlayerVersie2
             this.Controls.Add(this.statusStrip1);
             this.Name = "frmServerMediaPlayer";
             this.Text = "MediaPlayer - Server";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmServerMediaPlayer_Load);
             this.Shown += new System.EventHandler(this.frmServerMediaPlayer_Shown);
             this.statusStrip1.ResumeLayout(false);
@@ -351,6 +418,8 @@ namespace WinAppMediaPlayerVersie2
             this.pnlKnoppen.ResumeLayout(false);
             this.pnlAlleSongs.ResumeLayout(false);
             this.pnlAlleSongs.PerformLayout();
+            this.tabServer.ResumeLayout(false);
+            this.tabServer.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,6 +453,13 @@ namespace WinAppMediaPlayerVersie2
         private System.Windows.Forms.ToolStripStatusLabel tssTCPClient;
         private System.Windows.Forms.Button BtnStop;
         private System.Windows.Forms.Button BtnStart;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox TxtIP;
+        private System.Windows.Forms.TextBox TxtPort;
+        private System.Windows.Forms.CheckBox ChbStartServer;
+        private System.Windows.Forms.RichTextBox TxtMedling;
+        private System.ComponentModel.BackgroundWorker BgWorkerListener;
     }
 }
 

@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
 using System.IO;
+using System.Net.Sockets;
+using System.Net;
 
 namespace WinAppMediaPlayerVersie2
 {
@@ -20,6 +16,10 @@ namespace WinAppMediaPlayerVersie2
         }
 
         WindowsMediaPlayer Player = new WindowsMediaPlayer();
+        TcpClient tcpClient; // verbinding met client
+        TcpListener tcpListener; // wachten op client
+        StreamReader Reader;
+        StreamWriter Writer;
         private void frmServerMediaPlayer_Shown(object sender, EventArgs e)
         {
             pnlAlleSongs.Width = (splitContMediaPlayer.Panel1.Width - pnlKnoppen.Width) / 2;
@@ -90,6 +90,47 @@ namespace WinAppMediaPlayerVersie2
             string Song = lstPlaylistSongs.SelectedItem.ToString();
             if (lstPlaylistSongs.Items.Contains(Song)) lstPlaylistSongs.Items.Remove(Song); // als de song bestaat, verwijder
             Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[lstPlaylistSongs.SelectedIndex +1]);
+        }
+
+        private void ChbStartServer_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ChbStartServer.Checked) // als de checkbox ingedrukt is
+            {
+                // controle IP
+                IPAddress ipadres;
+                int poortNr;
+                if (!IPAddress.TryParse(TxtIP.Text.Replace(" ", ""), out ipadres))
+                {
+                    TxtMedling.Text += "Ongeldig IP adres!\n";
+                    TxtIP.Focus();
+                    return;
+                }
+                if(!int.TryParse(TxtPort.Text, out poortNr))
+                {
+                    TxtMedling.Text += "Ongeldig poortnummer!\n";
+                    TxtPort.Focus();
+                    return;
+                }
+
+                // listener opzetten
+                TxtMedling.Text += "Server Starten...\n";
+                try
+                {
+                    tcpListener = new TcpListener(ipadres, poortNr);
+                    tcpListener.Start();
+
+                    // background worker opzetten
+                    BgWorkerListener.WorkerSupportsCancellation = true;
+                    BgWorkerListener.RunWorkerAsync();
+                    TxtMedling.Text += "Server Opgestart\n";
+                    ChbStartServer.Text = "Stop Server";
+                }
+                catch(Exception ex)
+                {
+                    TxtMedling.Text += "Error Tijdens Server Opstart\n";
+
+                }
+            }
         }
     }
 }
