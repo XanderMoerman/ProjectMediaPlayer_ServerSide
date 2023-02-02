@@ -77,12 +77,11 @@ namespace WinAppMediaPlayerVersie2
         private void btnVoegToePlayList_Click(object sender, EventArgs e)
         {
             if (lstAlleSongs.SelectedIndex == -1) return; // als er niets geselecteerd is
+            string pad = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "muziek");
             string Song = lstAlleSongs.SelectedItem.ToString();
             if (lstPlaylistSongs.Items.Contains(Song)) return; // als de song al bestaat
             lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
-            string pad = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "muziek");
-            string GetSong = Path.Combine(pad, Song + ".mp3");
-            Player.currentPlaylist.appendItem(Player.newMedia(GetSong));
+            Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
         }
 
         private void btnVerwijderPlayList_Click(object sender, EventArgs e)
@@ -90,7 +89,7 @@ namespace WinAppMediaPlayerVersie2
             if (lstPlaylistSongs.SelectedIndex == -1) return; // als er niets geselecteerd is
             string Song = lstPlaylistSongs.SelectedItem.ToString();
             if (lstPlaylistSongs.Items.Contains(Song)) lstPlaylistSongs.Items.Remove(Song); // als de song bestaat, verwijder
-            //Player.currentPlaylist.removeItem() HIER
+            Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[lstPlaylistSongs.SelectedIndex +1]);
         }
     }
 }

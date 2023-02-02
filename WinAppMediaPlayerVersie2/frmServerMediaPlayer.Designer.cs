@@ -49,12 +49,12 @@ namespace WinAppMediaPlayerVersie2
             this.pnlAlleSongs = new System.Windows.Forms.Panel();
             this.lstAlleSongs = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.BtnStop = new System.Windows.Forms.Button();
+            this.BtnStart = new System.Windows.Forms.Button();
             this.btnVoegSongToe = new System.Windows.Forms.Button();
             this.tabServer = new System.Windows.Forms.TabPage();
             this.tabPlaylist = new System.Windows.Forms.TabPage();
             this.OfdFindSong = new System.Windows.Forms.OpenFileDialog();
-            this.BtnStart = new System.Windows.Forms.Button();
-            this.BtnStop = new System.Windows.Forms.Button();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabMediaPlayer.SuspendLayout();
@@ -270,6 +270,28 @@ namespace WinAppMediaPlayerVersie2
             this.label1.TabIndex = 0;
             this.label1.Text = "Alle Songs:";
             // 
+            // BtnStop
+            // 
+            this.BtnStop.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.BtnStop.Location = new System.Drawing.Point(673, 0);
+            this.BtnStop.Name = "BtnStop";
+            this.BtnStop.Size = new System.Drawing.Size(626, 155);
+            this.BtnStop.TabIndex = 2;
+            this.BtnStop.Text = "Stop";
+            this.BtnStop.UseVisualStyleBackColor = true;
+            this.BtnStop.Click += new System.EventHandler(this.btnStopPlay_Click);
+            // 
+            // BtnStart
+            // 
+            this.BtnStart.Dock = System.Windows.Forms.DockStyle.Left;
+            this.BtnStart.Location = new System.Drawing.Point(179, 0);
+            this.BtnStart.Name = "BtnStart";
+            this.BtnStart.Size = new System.Drawing.Size(494, 155);
+            this.BtnStart.TabIndex = 1;
+            this.BtnStart.Text = "Play";
+            this.BtnStart.UseVisualStyleBackColor = true;
+            this.BtnStart.Click += new System.EventHandler(this.btnStartPlay_Click);
+            // 
             // btnVoegSongToe
             // 
             this.btnVoegSongToe.Dock = System.Windows.Forms.DockStyle.Left;
@@ -286,7 +308,7 @@ namespace WinAppMediaPlayerVersie2
             this.tabServer.Location = new System.Drawing.Point(4, 25);
             this.tabServer.Name = "tabServer";
             this.tabServer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabServer.Size = new System.Drawing.Size(1347, 619);
+            this.tabServer.Size = new System.Drawing.Size(1305, 651);
             this.tabServer.TabIndex = 1;
             this.tabServer.Text = "TCP/IP Server";
             this.tabServer.UseVisualStyleBackColor = true;
@@ -295,7 +317,7 @@ namespace WinAppMediaPlayerVersie2
             // 
             this.tabPlaylist.Location = new System.Drawing.Point(4, 25);
             this.tabPlaylist.Name = "tabPlaylist";
-            this.tabPlaylist.Size = new System.Drawing.Size(1347, 619);
+            this.tabPlaylist.Size = new System.Drawing.Size(1305, 651);
             this.tabPlaylist.TabIndex = 2;
             this.tabPlaylist.Text = "PlayLijsten database";
             this.tabPlaylist.UseVisualStyleBackColor = true;
@@ -304,28 +326,6 @@ namespace WinAppMediaPlayerVersie2
             // 
             this.OfdFindSong.FileName = "openFileDialog1";
             this.OfdFindSong.Filter = "mp3 files (*.mp3)|*.mp3";
-            // 
-            // BtnStart
-            // 
-            this.BtnStart.Dock = System.Windows.Forms.DockStyle.Left;
-            this.BtnStart.Location = new System.Drawing.Point(179, 0);
-            this.BtnStart.Name = "BtnStart";
-            this.BtnStart.Size = new System.Drawing.Size(494, 155);
-            this.BtnStart.TabIndex = 1;
-            this.BtnStart.Text = "Play";
-            this.BtnStart.UseVisualStyleBackColor = true;
-            this.BtnStart.Click += new System.EventHandler(this.btnStartPlay_Click);
-            // 
-            // BtnStop
-            // 
-            this.BtnStop.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.BtnStop.Location = new System.Drawing.Point(673, 0);
-            this.BtnStop.Name = "BtnStop";
-            this.BtnStop.Size = new System.Drawing.Size(626, 155);
-            this.BtnStop.TabIndex = 2;
-            this.BtnStop.Text = "Stop";
-            this.BtnStop.UseVisualStyleBackColor = true;
-            this.BtnStop.Click += new System.EventHandler(this.btnStopPlay_Click);
             // 
             // frmServerMediaPlayer
             // 
