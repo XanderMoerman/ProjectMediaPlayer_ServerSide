@@ -85,6 +85,10 @@ namespace WinAppMediaPlayerVersie2
             if (lstPlaylistSongs.Items.Contains(Song)) return; // als de song al bestaat
             lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
             Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
+
+            // doorsturen naar client
+            if (tcpClient.Connected)
+                Writer.WriteLine("SONGADD " + Song); // klopt NIET
         }
 
         private void btnVerwijderPlayList_Click(object sender, EventArgs e)
@@ -201,6 +205,14 @@ namespace WinAppMediaPlayerVersie2
                 //status
                 tssTCPClient.Text = "Client verbonden";
                 tssTCPClient.ForeColor = Color.Green;
+
+                // doorsturen van alle titels
+                foreach(string file in lstAlleSongs.Items)
+                    Writer.WriteLine("SONGADD " + file);
+
+                // doorsturen van alle songs in de playlist
+                foreach (string file in lstPlaylistSongs.Items)
+                    Writer.WriteLine("PLAYLISTADD " + file);
             }
         }
 
@@ -250,8 +262,8 @@ namespace WinAppMediaPlayerVersie2
         {
             try
             {
-                Writer.WriteLine("[SERVER] " + TxtBericht.Text);
-                TxtCommunicatie.AppendText("[SERVER] " + TxtBericht.Text + "\r\n");
+                Writer.WriteLine("SERVER >> " + TxtBericht.Text);
+                TxtCommunicatie.AppendText("SERVER >> " + TxtBericht.Text + "\r\n");
             }
             catch
             {

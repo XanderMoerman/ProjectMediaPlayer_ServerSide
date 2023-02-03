@@ -155,7 +155,7 @@ namespace WinAppMediaPlayerVersie2
             this.tabMediaPlayer.Location = new System.Drawing.Point(4, 25);
             this.tabMediaPlayer.Name = "tabMediaPlayer";
             this.tabMediaPlayer.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMediaPlayer.Size = new System.Drawing.Size(1290, 669);
+            this.tabMediaPlayer.Size = new System.Drawing.Size(1309, 664);
             this.tabMediaPlayer.TabIndex = 0;
             this.tabMediaPlayer.Text = "MediaPlayer";
             this.tabMediaPlayer.UseVisualStyleBackColor = true;
@@ -180,8 +180,8 @@ namespace WinAppMediaPlayerVersie2
             this.splitContMediaPlayer.Panel2.Controls.Add(this.BtnStop);
             this.splitContMediaPlayer.Panel2.Controls.Add(this.BtnStart);
             this.splitContMediaPlayer.Panel2.Controls.Add(this.btnVoegSongToe);
-            this.splitContMediaPlayer.Size = new System.Drawing.Size(1284, 663);
-            this.splitContMediaPlayer.SplitterDistance = 499;
+            this.splitContMediaPlayer.Size = new System.Drawing.Size(1303, 658);
+            this.splitContMediaPlayer.SplitterDistance = 495;
             this.splitContMediaPlayer.TabIndex = 1;
             // 
             // pnlPlaylist
@@ -191,7 +191,7 @@ namespace WinAppMediaPlayerVersie2
             this.pnlPlaylist.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPlaylist.Location = new System.Drawing.Point(561, 0);
             this.pnlPlaylist.Name = "pnlPlaylist";
-            this.pnlPlaylist.Size = new System.Drawing.Size(723, 499);
+            this.pnlPlaylist.Size = new System.Drawing.Size(742, 495);
             this.pnlPlaylist.TabIndex = 4;
             // 
             // lstPlaylistSongs
@@ -201,7 +201,7 @@ namespace WinAppMediaPlayerVersie2
             this.lstPlaylistSongs.ItemHeight = 16;
             this.lstPlaylistSongs.Location = new System.Drawing.Point(0, 16);
             this.lstPlaylistSongs.Name = "lstPlaylistSongs";
-            this.lstPlaylistSongs.Size = new System.Drawing.Size(723, 483);
+            this.lstPlaylistSongs.Size = new System.Drawing.Size(742, 479);
             this.lstPlaylistSongs.TabIndex = 1;
             // 
             // label2
@@ -218,7 +218,7 @@ namespace WinAppMediaPlayerVersie2
             // 
             this.splitter2.Location = new System.Drawing.Point(553, 0);
             this.splitter2.Name = "splitter2";
-            this.splitter2.Size = new System.Drawing.Size(8, 499);
+            this.splitter2.Size = new System.Drawing.Size(8, 495);
             this.splitter2.TabIndex = 3;
             this.splitter2.TabStop = false;
             // 
@@ -230,7 +230,7 @@ namespace WinAppMediaPlayerVersie2
             this.pnlKnoppen.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlKnoppen.Location = new System.Drawing.Point(480, 0);
             this.pnlKnoppen.Name = "pnlKnoppen";
-            this.pnlKnoppen.Size = new System.Drawing.Size(73, 499);
+            this.pnlKnoppen.Size = new System.Drawing.Size(73, 495);
             this.pnlKnoppen.TabIndex = 2;
             // 
             // btnVerwijderPlayList
@@ -257,7 +257,7 @@ namespace WinAppMediaPlayerVersie2
             // 
             this.splitter1.Location = new System.Drawing.Point(472, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(8, 499);
+            this.splitter1.Size = new System.Drawing.Size(8, 495);
             this.splitter1.TabIndex = 1;
             this.splitter1.TabStop = false;
             // 
@@ -268,7 +268,7 @@ namespace WinAppMediaPlayerVersie2
             this.pnlAlleSongs.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlAlleSongs.Location = new System.Drawing.Point(0, 0);
             this.pnlAlleSongs.Name = "pnlAlleSongs";
-            this.pnlAlleSongs.Size = new System.Drawing.Size(472, 499);
+            this.pnlAlleSongs.Size = new System.Drawing.Size(472, 495);
             this.pnlAlleSongs.TabIndex = 0;
             // 
             // lstAlleSongs
@@ -278,7 +278,7 @@ namespace WinAppMediaPlayerVersie2
             this.lstAlleSongs.ItemHeight = 16;
             this.lstAlleSongs.Location = new System.Drawing.Point(0, 16);
             this.lstAlleSongs.Name = "lstAlleSongs";
-            this.lstAlleSongs.Size = new System.Drawing.Size(472, 483);
+            this.lstAlleSongs.Size = new System.Drawing.Size(472, 479);
             this.lstAlleSongs.TabIndex = 1;
             // 
             // label1
@@ -296,7 +296,7 @@ namespace WinAppMediaPlayerVersie2
             this.BtnStop.Dock = System.Windows.Forms.DockStyle.Fill;
             this.BtnStop.Location = new System.Drawing.Point(673, 0);
             this.BtnStop.Name = "BtnStop";
-            this.BtnStop.Size = new System.Drawing.Size(611, 160);
+            this.BtnStop.Size = new System.Drawing.Size(630, 159);
             this.BtnStop.TabIndex = 2;
             this.BtnStop.Text = "Stop";
             this.BtnStop.UseVisualStyleBackColor = true;
@@ -307,7 +307,7 @@ namespace WinAppMediaPlayerVersie2
             this.BtnStart.Dock = System.Windows.Forms.DockStyle.Left;
             this.BtnStart.Location = new System.Drawing.Point(179, 0);
             this.BtnStart.Name = "BtnStart";
-            this.BtnStart.Size = new System.Drawing.Size(494, 160);
+            this.BtnStart.Size = new System.Drawing.Size(494, 159);
             this.BtnStart.TabIndex = 1;
             this.BtnStart.Text = "Play";
             this.BtnStart.UseVisualStyleBackColor = true;
@@ -318,7 +318,7 @@ namespace WinAppMediaPlayerVersie2
             this.btnVoegSongToe.Dock = System.Windows.Forms.DockStyle.Left;
             this.btnVoegSongToe.Location = new System.Drawing.Point(0, 0);
             this.btnVoegSongToe.Name = "btnVoegSongToe";
-            this.btnVoegSongToe.Size = new System.Drawing.Size(179, 160);
+            this.btnVoegSongToe.Size = new System.Drawing.Size(179, 159);
             this.btnVoegSongToe.TabIndex = 0;
             this.btnVoegSongToe.Text = "Song zoeken ...";
             this.btnVoegSongToe.UseVisualStyleBackColor = true;
