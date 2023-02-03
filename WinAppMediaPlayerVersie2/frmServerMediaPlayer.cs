@@ -39,6 +39,9 @@ namespace WinAppMediaPlayerVersie2
                 // voeg toe aan list
                 if (file.EndsWith(".mp3")) lstAlleSongs.Items.Add(Path.GetFileNameWithoutExtension(file));
             }
+
+            // server communicatie disabelen
+            PnlCommunicatie.Enabled = false;
         }
 
         // afspelen
@@ -101,19 +104,19 @@ namespace WinAppMediaPlayerVersie2
                 int poortNr;
                 if (!IPAddress.TryParse(TxtIP.Text.Replace(" ", ""), out ipadres))
                 {
-                    TxtMedling.Text += "Ongeldig IP adres!\n";
+                    TxtMedling.AppendText("Ongeldig IP adres\r\n");
                     TxtIP.Focus();
                     return;
                 }
                 if(!int.TryParse(TxtPort.Text, out poortNr))
                 {
-                    TxtMedling.Text += "Ongeldig poortnummer!\n";
+                    TxtMedling.AppendText("Ongeldig poortnummer\r\n");
                     TxtPort.Focus();
                     return;
                 }
 
                 // listener opzetten
-                TxtMedling.Text += "Server Starten...\n";
+                TxtMedling.AppendText("Server Starten\r\n");
                 try
                 {
                     tcpListener = new TcpListener(ipadres, poortNr);
@@ -122,15 +125,144 @@ namespace WinAppMediaPlayerVersie2
                     // background worker opzetten
                     BgWorkerListener.WorkerSupportsCancellation = true;
                     BgWorkerListener.RunWorkerAsync();
-                    TxtMedling.Text += "Server Opgestart\n";
+                    TxtMedling.AppendText("Server Opgestart\r\n");
                     ChbStartServer.Text = "Stop Server";
+
+                    // status
+                    tssTCPServer.Text = "TCP/IP Server gestart";
+                    tssTCPServer.ForeColor = Color.Green;
                 }
-                catch(Exception ex)
+                catch
                 {
                     TxtMedling.Text += "Error Tijdens Server Opstart\n";
-
                 }
             }
+
+            // als de knop unchecked is
+            else
+            {
+                if(tcpClient != null && tcpClient.Connected) // als er een client verbonden is
+                {
+                    // stopbericht naar client sturen
+                    Writer.WriteLine("Disconnect");
+                    BgWorkerOntvang.CancelAsync(); // stop backgroundworker
+                }
+                try // sever stoppen
+                {
+                    if(tcpListener != null)
+                    {
+                        // als er een client verbonden is
+                        if (tcpClient != null && tcpClient.Connected) tcpClient.Close(); // close client
+                        tcpListener.Stop();
+                    }
+                    ChbStartServer.Text = "Start Server";
+                    TxtMedling.AppendText("Server gestopt!\r\n");
+
+                    // status
+                    tssTCPServer.Text = "TCP/IP Server gestopt";
+                    tssTCPServer.ForeColor = Color.Red;
+
+                    // panel communicatie
+                    PnlCommunicatie.Enabled = false;
+                    TxtIP.Focus();
+                }
+                catch
+                {
+                    MessageBox.Show("Server kan niet worden gestopt!");
+                }
+            }
+        }
+
+        private void BgWorkerListener_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            tcpClient = tcpListener.AcceptTcpClient(); // 1 client aanvaarden, hij zal wachten tot de client verbonden is
+            // daarna zal RunWorkerCompleted runnen
+        }
+
+        private void BgWorkerListener_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            // listener moeten stoppen met wachten als de client verbonden is
+            if(tcpClient != null && tcpClient.Connected)
+            {
+                // communicatie met client opzetten
+                Reader = new StreamReader(tcpClient.GetStream());
+                Writer = new StreamWriter(tcpClient.GetStream());
+                Writer.AutoFlush = true;
+                BgWorkerOntvang.WorkerSupportsCancellation = true;
+                BgWorkerOntvang.RunWorkerAsync();
+                BtnVerbreekClient.Enabled = true;
+                TxtMedling.AppendText("Client is verbonden!\r\n");
+
+                // client communicatie enabelen
+                PnlCommunicatie.Enabled = true;
+                TxtBericht.Focus();
+                this.AcceptButton = BtnSendClient;
+
+                //status
+                tssTCPClient.Text = "Client verbonden";
+                tssTCPClient.ForeColor = Color.Green;
+            }
+        }
+
+        private void BgWorkerOntvang_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            while(tcpClient.Connected) // zolang de client verbonden is
+            {
+                string bericht;
+                try
+                {
+                    bericht = Reader.ReadLine();
+                    if (bericht == "Disconnect") break; // break uit de while loop
+                    TxtCommunicatie.Invoke(new MethodInvoker(delegate ()
+                    {
+                        TxtCommunicatie.AppendText(bericht + "\r\n");
+                    }));
+                }
+                catch
+                {
+                    TxtMedling.Invoke(new MethodInvoker(delegate ()
+                    {
+                        TxtMedling.AppendText("Kan bericht niet ontvangen.\r\n");
+                    }));
+                }
+            }
+        }
+
+        private void BgWorkerOntvang_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            Writer.Close();
+            Reader.Close();
+            tcpClient.Close();
+            TxtMedling.AppendText("Verbinding met de client is verbroken.\r\n");
+            BtnVerbreekClient.Enabled = false;
+            PnlCommunicatie.Enabled = false;
+
+            // status
+            tssTCPClient.Text = "Client niet verbonden";
+            tssTCPClient.ForeColor = Color.Red;
+
+            // opnieuw wachten tot een client verbind
+            if (ChbStartServer.Checked)
+                BgWorkerListener.RunWorkerAsync();
+        }
+
+        private void BtnSendClient_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Writer.WriteLine("[SERVER] " + TxtBericht.Text);
+                TxtCommunicatie.AppendText("[SERVER] " + TxtBericht.Text + "\r\n");
+            }
+            catch
+            {
+                TxtMedling.AppendText("Bericht kon niet verzonden worden\r\n");
+            }
+        }
+
+        private void BtnVerbreekClient_CheckedChanged(object sender, EventArgs e)
+        {
+            Writer.WriteLine("Disconnect");
+            tcpClient.Close();
         }
     }
 }
