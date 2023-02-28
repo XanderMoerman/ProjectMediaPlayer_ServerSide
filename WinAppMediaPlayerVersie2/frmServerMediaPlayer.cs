@@ -74,9 +74,12 @@ namespace WinAppMediaPlayerVersie2
                     if (!Directory.Exists(pad)) Directory.CreateDirectory(pad); // maak map als muziek map nog niet bestaat
                     File.Copy(OfdFindSong.FileName, pad + "\\" + SongFile + ".mp3");
                 }
+
+                // versturen naar client
+                if (tcpClient.Connected)
+                    Writer.WriteLine("SONGLISTADD " + OfdFindSong.FileName);
             }
         }
-
         private void btnVoegToePlayList_Click(object sender, EventArgs e)
         {
             if (lstAlleSongs.SelectedIndex == -1) return; // als er niets geselecteerd is
@@ -88,7 +91,7 @@ namespace WinAppMediaPlayerVersie2
 
             // doorsturen naar client
             if (tcpClient.Connected)
-                Writer.WriteLine("SONGADD " + Song); // klopt NIET
+                Writer.WriteLine("SONGLISTADD " + Song);
         }
 
         private void btnVerwijderPlayList_Click(object sender, EventArgs e)
@@ -189,8 +192,8 @@ namespace WinAppMediaPlayerVersie2
             if(tcpClient != null && tcpClient.Connected)
             {
                 // communicatie met client opzetten
-                Reader = new StreamReader(tcpClient.GetStream());
                 Writer = new StreamWriter(tcpClient.GetStream());
+                Reader = new StreamReader(tcpClient.GetStream());
                 Writer.AutoFlush = true;
                 BgWorkerOntvang.WorkerSupportsCancellation = true;
                 BgWorkerOntvang.RunWorkerAsync();

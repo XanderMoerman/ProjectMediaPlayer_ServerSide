@@ -53,23 +53,23 @@ namespace WinAppMediaPlayerVersie2
             this.BtnStart = new System.Windows.Forms.Button();
             this.btnVoegSongToe = new System.Windows.Forms.Button();
             this.tabServer = new System.Windows.Forms.TabPage();
-            this.TxtMedling = new System.Windows.Forms.RichTextBox();
-            this.ChbStartServer = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.PnlCommunicatie = new System.Windows.Forms.Panel();
+            this.TxtCommunicatie = new System.Windows.Forms.RichTextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.TxtBericht = new System.Windows.Forms.TextBox();
+            this.BtnSendClient = new System.Windows.Forms.Button();
+            this.PnlConnect = new System.Windows.Forms.Panel();
+            this.BtnVerbreekClient = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.TxtIP = new System.Windows.Forms.TextBox();
+            this.TxtMedling = new System.Windows.Forms.RichTextBox();
             this.TxtPort = new System.Windows.Forms.TextBox();
+            this.ChbStartServer = new System.Windows.Forms.CheckBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabPlaylist = new System.Windows.Forms.TabPage();
             this.OfdFindSong = new System.Windows.Forms.OpenFileDialog();
             this.BgWorkerListener = new System.ComponentModel.BackgroundWorker();
-            this.PnlConnect = new System.Windows.Forms.Panel();
-            this.PnlCommunicatie = new System.Windows.Forms.Panel();
-            this.label5 = new System.Windows.Forms.Label();
-            this.BtnSendClient = new System.Windows.Forms.Button();
-            this.TxtBericht = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.TxtCommunicatie = new System.Windows.Forms.RichTextBox();
-            this.BtnVerbreekClient = new System.Windows.Forms.CheckBox();
             this.BgWorkerOntvang = new System.ComponentModel.BackgroundWorker();
             this.statusStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -82,8 +82,8 @@ namespace WinAppMediaPlayerVersie2
             this.pnlKnoppen.SuspendLayout();
             this.pnlAlleSongs.SuspendLayout();
             this.tabServer.SuspendLayout();
-            this.PnlConnect.SuspendLayout();
             this.PnlCommunicatie.SuspendLayout();
+            this.PnlConnect.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip1
@@ -336,81 +336,56 @@ namespace WinAppMediaPlayerVersie2
             this.tabServer.Text = "TCP/IP Server";
             this.tabServer.UseVisualStyleBackColor = true;
             // 
-            // TxtMedling
+            // PnlCommunicatie
             // 
-            this.TxtMedling.Location = new System.Drawing.Point(7, 159);
-            this.TxtMedling.Name = "TxtMedling";
-            this.TxtMedling.ReadOnly = true;
-            this.TxtMedling.Size = new System.Drawing.Size(319, 477);
-            this.TxtMedling.TabIndex = 6;
-            this.TxtMedling.Text = "";
+            this.PnlCommunicatie.Controls.Add(this.TxtCommunicatie);
+            this.PnlCommunicatie.Controls.Add(this.label6);
+            this.PnlCommunicatie.Controls.Add(this.TxtBericht);
+            this.PnlCommunicatie.Controls.Add(this.BtnSendClient);
+            this.PnlCommunicatie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PnlCommunicatie.Location = new System.Drawing.Point(334, 3);
+            this.PnlCommunicatie.Name = "PnlCommunicatie";
+            this.PnlCommunicatie.Size = new System.Drawing.Size(972, 658);
+            this.PnlCommunicatie.TabIndex = 8;
             // 
-            // ChbStartServer
+            // TxtCommunicatie
             // 
-            this.ChbStartServer.Appearance = System.Windows.Forms.Appearance.Button;
-            this.ChbStartServer.Location = new System.Drawing.Point(7, 59);
-            this.ChbStartServer.Name = "ChbStartServer";
-            this.ChbStartServer.Size = new System.Drawing.Size(319, 36);
-            this.ChbStartServer.TabIndex = 5;
-            this.ChbStartServer.Text = "Start Server";
-            this.ChbStartServer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.ChbStartServer.UseVisualStyleBackColor = true;
-            this.ChbStartServer.CheckedChanged += new System.EventHandler(this.ChbStartServer_CheckedChanged);
+            this.TxtCommunicatie.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TxtCommunicatie.Location = new System.Drawing.Point(0, 0);
+            this.TxtCommunicatie.Name = "TxtCommunicatie";
+            this.TxtCommunicatie.ReadOnly = true;
+            this.TxtCommunicatie.Size = new System.Drawing.Size(972, 579);
+            this.TxtCommunicatie.TabIndex = 3;
+            this.TxtCommunicatie.Text = "Communicatie Tussen Client en Server:";
             // 
-            // label4
+            // label6
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(4, 31);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(31, 16);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "Port";
+            this.label6.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label6.Location = new System.Drawing.Point(0, 579);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(972, 18);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Bericht";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // TxtBericht
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(21, 6);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(19, 16);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "IP";
+            this.TxtBericht.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.TxtBericht.Location = new System.Drawing.Point(0, 597);
+            this.TxtBericht.Name = "TxtBericht";
+            this.TxtBericht.Size = new System.Drawing.Size(972, 22);
+            this.TxtBericht.TabIndex = 1;
             // 
-            // TxtIP
+            // BtnSendClient
             // 
-            this.TxtIP.Location = new System.Drawing.Point(41, 3);
-            this.TxtIP.Name = "TxtIP";
-            this.TxtIP.Size = new System.Drawing.Size(285, 22);
-            this.TxtIP.TabIndex = 2;
-            this.TxtIP.Text = "127.000.000.001";
-            this.TxtIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // TxtPort
-            // 
-            this.TxtPort.Location = new System.Drawing.Point(41, 31);
-            this.TxtPort.Name = "TxtPort";
-            this.TxtPort.Size = new System.Drawing.Size(285, 22);
-            this.TxtPort.TabIndex = 1;
-            this.TxtPort.Text = "50000";
-            this.TxtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // tabPlaylist
-            // 
-            this.tabPlaylist.Location = new System.Drawing.Point(4, 25);
-            this.tabPlaylist.Name = "tabPlaylist";
-            this.tabPlaylist.Size = new System.Drawing.Size(1305, 651);
-            this.tabPlaylist.TabIndex = 2;
-            this.tabPlaylist.Text = "PlayLijsten database";
-            this.tabPlaylist.UseVisualStyleBackColor = true;
-            // 
-            // OfdFindSong
-            // 
-            this.OfdFindSong.FileName = "openFileDialog1";
-            this.OfdFindSong.Filter = "mp3 files (*.mp3)|*.mp3|wav files (*.wav)|*.wav|mp4 files (*.mp4)|*.mp4";
-            // 
-            // BgWorkerListener
-            // 
-            this.BgWorkerListener.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorkerListener_DoWork);
-            this.BgWorkerListener.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerListener_RunWorkerCompleted);
+            this.BtnSendClient.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.BtnSendClient.Location = new System.Drawing.Point(0, 619);
+            this.BtnSendClient.Name = "BtnSendClient";
+            this.BtnSendClient.Size = new System.Drawing.Size(972, 39);
+            this.BtnSendClient.TabIndex = 0;
+            this.BtnSendClient.Text = "Stuur Bericht Naar Client";
+            this.BtnSendClient.UseVisualStyleBackColor = true;
+            this.BtnSendClient.Click += new System.EventHandler(this.BtnSendClient_Click);
             // 
             // PnlConnect
             // 
@@ -428,66 +403,6 @@ namespace WinAppMediaPlayerVersie2
             this.PnlConnect.Size = new System.Drawing.Size(331, 658);
             this.PnlConnect.TabIndex = 7;
             // 
-            // PnlCommunicatie
-            // 
-            this.PnlCommunicatie.Controls.Add(this.TxtCommunicatie);
-            this.PnlCommunicatie.Controls.Add(this.label6);
-            this.PnlCommunicatie.Controls.Add(this.TxtBericht);
-            this.PnlCommunicatie.Controls.Add(this.BtnSendClient);
-            this.PnlCommunicatie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PnlCommunicatie.Location = new System.Drawing.Point(334, 3);
-            this.PnlCommunicatie.Name = "PnlCommunicatie";
-            this.PnlCommunicatie.Size = new System.Drawing.Size(972, 658);
-            this.PnlCommunicatie.TabIndex = 8;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(5, 140);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(140, 16);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Medlingen Van Server";
-            // 
-            // BtnSendClient
-            // 
-            this.BtnSendClient.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.BtnSendClient.Location = new System.Drawing.Point(0, 619);
-            this.BtnSendClient.Name = "BtnSendClient";
-            this.BtnSendClient.Size = new System.Drawing.Size(972, 39);
-            this.BtnSendClient.TabIndex = 0;
-            this.BtnSendClient.Text = "Stuur Bericht Naar Client";
-            this.BtnSendClient.UseVisualStyleBackColor = true;
-            this.BtnSendClient.Click += new System.EventHandler(this.BtnSendClient_Click);
-            // 
-            // TxtBericht
-            // 
-            this.TxtBericht.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.TxtBericht.Location = new System.Drawing.Point(0, 597);
-            this.TxtBericht.Name = "TxtBericht";
-            this.TxtBericht.Size = new System.Drawing.Size(972, 22);
-            this.TxtBericht.TabIndex = 1;
-            // 
-            // label6
-            // 
-            this.label6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label6.Location = new System.Drawing.Point(0, 579);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(972, 18);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Bericht";
-            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // TxtCommunicatie
-            // 
-            this.TxtCommunicatie.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TxtCommunicatie.Location = new System.Drawing.Point(0, 0);
-            this.TxtCommunicatie.Name = "TxtCommunicatie";
-            this.TxtCommunicatie.ReadOnly = true;
-            this.TxtCommunicatie.Size = new System.Drawing.Size(972, 579);
-            this.TxtCommunicatie.TabIndex = 3;
-            this.TxtCommunicatie.Text = "Communicatie Tussen Client en Server:";
-            // 
             // BtnVerbreekClient
             // 
             this.BtnVerbreekClient.Appearance = System.Windows.Forms.Appearance.Button;
@@ -500,6 +415,91 @@ namespace WinAppMediaPlayerVersie2
             this.BtnVerbreekClient.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.BtnVerbreekClient.UseVisualStyleBackColor = true;
             this.BtnVerbreekClient.CheckedChanged += new System.EventHandler(this.BtnVerbreekClient_CheckedChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(5, 140);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(140, 16);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Medlingen Van Server";
+            // 
+            // TxtIP
+            // 
+            this.TxtIP.Location = new System.Drawing.Point(41, 3);
+            this.TxtIP.Name = "TxtIP";
+            this.TxtIP.Size = new System.Drawing.Size(285, 22);
+            this.TxtIP.TabIndex = 2;
+            this.TxtIP.Text = "127.000.000.001";
+            this.TxtIP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // TxtMedling
+            // 
+            this.TxtMedling.Location = new System.Drawing.Point(7, 159);
+            this.TxtMedling.Name = "TxtMedling";
+            this.TxtMedling.ReadOnly = true;
+            this.TxtMedling.Size = new System.Drawing.Size(319, 477);
+            this.TxtMedling.TabIndex = 6;
+            this.TxtMedling.Text = "";
+            // 
+            // TxtPort
+            // 
+            this.TxtPort.Location = new System.Drawing.Point(41, 31);
+            this.TxtPort.Name = "TxtPort";
+            this.TxtPort.Size = new System.Drawing.Size(285, 22);
+            this.TxtPort.TabIndex = 1;
+            this.TxtPort.Text = "50000";
+            this.TxtPort.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ChbStartServer
+            // 
+            this.ChbStartServer.Appearance = System.Windows.Forms.Appearance.Button;
+            this.ChbStartServer.Location = new System.Drawing.Point(7, 59);
+            this.ChbStartServer.Name = "ChbStartServer";
+            this.ChbStartServer.Size = new System.Drawing.Size(319, 36);
+            this.ChbStartServer.TabIndex = 5;
+            this.ChbStartServer.Text = "Start Server";
+            this.ChbStartServer.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ChbStartServer.UseVisualStyleBackColor = true;
+            this.ChbStartServer.CheckedChanged += new System.EventHandler(this.ChbStartServer_CheckedChanged);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(21, 6);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(19, 16);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "IP";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(31, 16);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "Port";
+            // 
+            // tabPlaylist
+            // 
+            this.tabPlaylist.Location = new System.Drawing.Point(4, 25);
+            this.tabPlaylist.Name = "tabPlaylist";
+            this.tabPlaylist.Size = new System.Drawing.Size(1309, 664);
+            this.tabPlaylist.TabIndex = 2;
+            this.tabPlaylist.Text = "PlayLijsten database";
+            this.tabPlaylist.UseVisualStyleBackColor = true;
+            // 
+            // OfdFindSong
+            // 
+            this.OfdFindSong.FileName = "openFileDialog1";
+            this.OfdFindSong.Filter = "mp3 files (*.mp3)|*.mp3|wav files (*.wav)|*.wav|mp4 files (*.mp4)|*.mp4";
+            // 
+            // BgWorkerListener
+            // 
+            this.BgWorkerListener.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgWorkerListener_DoWork);
+            this.BgWorkerListener.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.BgWorkerListener_RunWorkerCompleted);
             // 
             // BgWorkerOntvang
             // 
@@ -532,10 +532,10 @@ namespace WinAppMediaPlayerVersie2
             this.pnlAlleSongs.ResumeLayout(false);
             this.pnlAlleSongs.PerformLayout();
             this.tabServer.ResumeLayout(false);
-            this.PnlConnect.ResumeLayout(false);
-            this.PnlConnect.PerformLayout();
             this.PnlCommunicatie.ResumeLayout(false);
             this.PnlCommunicatie.PerformLayout();
+            this.PnlConnect.ResumeLayout(false);
+            this.PnlConnect.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
