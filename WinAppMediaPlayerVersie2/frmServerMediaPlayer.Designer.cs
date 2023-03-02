@@ -356,7 +356,7 @@ namespace WinAppMediaPlayerVersie2
             this.TxtCommunicatie.ReadOnly = true;
             this.TxtCommunicatie.Size = new System.Drawing.Size(972, 579);
             this.TxtCommunicatie.TabIndex = 3;
-            this.TxtCommunicatie.Text = "Communicatie Tussen Client en Server:";
+            this.TxtCommunicatie.Text = "Communicatie Tussen Client en Server:\n";
             // 
             // label6
             // 
