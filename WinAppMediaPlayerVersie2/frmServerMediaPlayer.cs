@@ -76,8 +76,15 @@ namespace WinAppMediaPlayerVersie2
                 }
 
                 // versturen naar client
-                if (tcpClient.Connected)
-                    Writer.WriteLine("SONGLISTADD " + OfdFindSong.FileName);
+                try
+                {
+                    if (Writer != null)
+                            Writer.WriteLine("SONGLISTADD " + OfdFindSong.FileName);
+                    }
+                catch
+                {
+                    TxtMedling.AppendText("Kon niet verzenden. Check of er connectie is");
+                }
             }
         }
         private void btnVoegToePlayList_Click(object sender, EventArgs e)
@@ -90,8 +97,15 @@ namespace WinAppMediaPlayerVersie2
             Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
 
             // doorsturen naar client
-            if (tcpClient.Connected)
-                Writer.WriteLine("PLAYLISTADD " + Song);
+            try
+            {
+                if (Writer != null)
+                    Writer.WriteLine("PLAYLISTADD " + Song);
+            }
+            catch
+            {
+                TxtMedling.AppendText("Kon niet verzenden. Check of er connectie is");
+            }
         }
 
         private void btnVerwijderPlayList_Click(object sender, EventArgs e)
@@ -102,8 +116,15 @@ namespace WinAppMediaPlayerVersie2
             Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[lstPlaylistSongs.SelectedIndex +1]);
 
             // doorsturen naar client
-            if (tcpClient.Connected)
-                Writer.WriteLine("PLAYLISTREMOVE " + Song);
+            try
+            {
+                if(Writer != null)
+                    Writer.WriteLine("PLAYLISTREMOVE " + Song);
+            }
+            catch
+            {
+                TxtMedling.AppendText("Kon niet verzenden. Check of er connectie is");
+            }
         }
 
         private void ChbStartServer_CheckedChanged(object sender, EventArgs e)
@@ -234,26 +255,51 @@ namespace WinAppMediaPlayerVersie2
                     if (bericht == "Disconnect") break; // break uit de while loop
                     if(bericht.StartsWith("PLAYLISTADD")) // voeg toe aan playlist
                     {
-                        string pad = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "muziek");
-                        string Song = bericht.Remove(0, 12);
-                        if (lstPlaylistSongs.Items.Contains(Song)) return; // als de song al bestaat
-                        lstPlaylistSongs.Invoke(new MethodInvoker(delegate ()
+                        Invoke(new MethodInvoker(delegate ()
                         {
-                            lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
+                            string pad = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "muziek");
+                            string Song = bericht.Remove(0, 12);
+                            if (lstPlaylistSongs.Items.Contains(Song)) return; // als de song al bestaat
+                            lstPlaylistSongs.Invoke(new MethodInvoker(delegate ()
+                            {
+                                lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
+                            }));
+                            Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
                         }));
-                        Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
+                        break;
                     }
                     if(bericht.StartsWith("PLAYLISTREMOVE"))
                     {
-                        string Song = bericht.Remove(0, 15);
-                        int index = lstPlaylistSongs.Items.IndexOf(Song);
-                        lstPlaylistSongs.Invoke(new MethodInvoker(delegate ()
+                        Invoke(new MethodInvoker(delegate ()
                         {
+                            string Song = bericht.Remove(0, 15);
+                            int index = lstPlaylistSongs.Items.IndexOf(Song);
                             // als de song bestaat, verwijder
                             if (lstPlaylistSongs.Items.Contains(Song)) lstPlaylistSongs.Items.Remove(Song);
+                            Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[index + 1]);
                         }));
-                        Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[index + 1]);
-
+                        break;
+                    }
+                    if (bericht == "START-PLAYER")
+                    {
+                        Invoke(new MethodInvoker(delegate ()
+                        {
+                            Player.controls.play();
+                            tssMediaPlayer.Text = "Mediaplayer actief";
+                            tssMediaPlayer.BackColor = Color.Green;
+                        }));
+                        break;
+                    }
+                    if (bericht == "STOP-PLAYER")
+                    {
+                        Invoke(new MethodInvoker(delegate ()
+                        {
+                            Player.controls.stop();
+                            tssMediaPlayer.Text = "Mediaplayer gestopt";
+                            tssMediaPlayer.BackColor = Color.Red;
+                        }));
+                        
+                        break;
                     }
                     TxtCommunicatie.Invoke(new MethodInvoker(delegate ()
                     {
@@ -297,7 +343,7 @@ namespace WinAppMediaPlayerVersie2
             }
             catch
             {
-                TxtMedling.AppendText("Bericht kon niet verzonden worden\r\n");
+                TxtMedling.AppendText("Bericht kon niet verzonden worden!\r\n");
             }
         }
 
