@@ -79,7 +79,7 @@ namespace WinAppMediaPlayerVersie2
                 try
                 {
                     if (Writer != null)
-                            Writer.WriteLine("SONGLISTADD " + OfdFindSong.FileName);
+                            Writer.WriteLine("SONGLISTADD " + SongFile);
                     }
                 catch
                 {
@@ -246,41 +246,45 @@ namespace WinAppMediaPlayerVersie2
 
         private void BgWorkerOntvang_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            while(tcpClient.Connected) // zolang de client verbonden is
+            string bericht = "";
+            while (bericht != "Disconnect") // zolang de client verbonden is
             {
-                string bericht;
                 try
                 {
                     bericht = Reader.ReadLine();
-                    if (bericht == "Disconnect") break; // break uit de while loop
-                    if(bericht.StartsWith("PLAYLISTADD")) // voeg toe aan playlist
+                    if (bericht == "Disconnect") ; // break uit de while loop
+                    else if (bericht == null) ;
+                    else if (bericht.StartsWith("PLAYLISTADD")) // voeg toe aan playlist
                     {
                         Invoke(new MethodInvoker(delegate ()
                         {
                             string pad = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "muziek");
                             string Song = bericht.Remove(0, 12);
-                            if (lstPlaylistSongs.Items.Contains(Song)) return; // als de song al bestaat
-                            lstPlaylistSongs.Invoke(new MethodInvoker(delegate ()
+                            if (!lstPlaylistSongs.Items.Contains(Song))// als de song nog niet bestaat
                             {
-                                lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
-                            }));
-                            Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
+                                lstPlaylistSongs.Invoke(new MethodInvoker(delegate ()
+                                {
+                                    lstPlaylistSongs.Items.Add(Song); // voeg toe aan de list
+                                }));
+                                Player.currentPlaylist.appendItem(Player.newMedia(Path.Combine(pad, Song + ".mp3")));
+                            }
                         }));
-                        break;
                     }
-                    if(bericht.StartsWith("PLAYLISTREMOVE"))
+                    else if(bericht.StartsWith("PLAYLISTREMOVE"))
                     {
                         Invoke(new MethodInvoker(delegate ()
                         {
                             string Song = bericht.Remove(0, 15);
-                            int index = lstPlaylistSongs.Items.IndexOf(Song);
                             // als de song bestaat, verwijder
-                            if (lstPlaylistSongs.Items.Contains(Song)) lstPlaylistSongs.Items.Remove(Song);
-                            Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[index + 1]);
+                            if (lstPlaylistSongs.Items.Contains(Song))
+                            {
+                                int index = lstPlaylistSongs.Items.IndexOf(Song);
+                                lstPlaylistSongs.Items.Remove(Song);
+                                Player.currentPlaylist.removeItem(Player.currentPlaylist.Item[index]);
+                            }
                         }));
-                        break;
                     }
-                    if (bericht == "START-PLAYER")
+                    else if (bericht == "START-PLAYER")
                     {
                         Invoke(new MethodInvoker(delegate ()
                         {
@@ -288,9 +292,8 @@ namespace WinAppMediaPlayerVersie2
                             tssMediaPlayer.Text = "Mediaplayer actief";
                             tssMediaPlayer.BackColor = Color.Green;
                         }));
-                        break;
                     }
-                    if (bericht == "STOP-PLAYER")
+                    else if (bericht == "STOP-PLAYER")
                     {
                         Invoke(new MethodInvoker(delegate ()
                         {
@@ -298,13 +301,14 @@ namespace WinAppMediaPlayerVersie2
                             tssMediaPlayer.Text = "Mediaplayer gestopt";
                             tssMediaPlayer.BackColor = Color.Red;
                         }));
-                        
-                        break;
                     }
-                    TxtCommunicatie.Invoke(new MethodInvoker(delegate ()
+                    else
                     {
-                        TxtCommunicatie.AppendText(bericht + "\r\n");
-                    }));
+                        TxtCommunicatie.Invoke(new MethodInvoker(delegate ()
+                        {
+                            TxtCommunicatie.AppendText(bericht + "\r\n");
+                        }));
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -351,6 +355,12 @@ namespace WinAppMediaPlayerVersie2
         {
             Writer.WriteLine("Disconnect");
             tcpClient.Close();
+        }
+
+        private void frmServerMediaPlayer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(Writer != null)
+                Writer.WriteLine("Disconnect");
         }
     }
 }
